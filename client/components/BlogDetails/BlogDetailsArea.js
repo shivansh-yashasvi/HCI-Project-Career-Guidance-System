@@ -21,6 +21,7 @@ const BlogDetailsArea = () => {
             <div className="container">
                <div className="row">
                   <div className="col-xxl-8 col-xl-8 col-lg-8">
+                     
                      <div className="postbox__wrapper postbox__details pr-20">
                         <div className="postbox__item transition-3 mb-70">
                            <div className="postbox__thumb m-img">

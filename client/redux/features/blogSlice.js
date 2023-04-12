@@ -1,56 +1,64 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // all blogs get
-export const blogData = createAsyncThunk(
-  'blogs/fetchBlogs',
-  async () => {
-    const response = await fetch('http://localhost:8000/blog')
-    const data = response.json();
-    return data;
-  }
-)
+export const blogData = createAsyncThunk("blogs/fetchBlogs", async () => {
+  const response = await fetch("http://localhost:8000/blog");
+  const data = response.json();
+  return data;
+});
 // get single blog
 export const singleBlog = createAsyncThunk(
-  'event/fetchEvent',
-  async (id = '62208badea7975d304d76830') => {
-    const response = await fetch(`http://localhost:8000/blog/${id}`)
+  "event/fetchEvent",
+  async (id = "62208badea7975d304d76830") => {
+    const response = await fetch(`http://localhost:8000/blog/${id}`);
     const event = response.json();
     return event;
   }
-)
+);
 // blogSlice
 export const blogSlice = createSlice({
-  name: 'blog',
+  name: "blog",
   initialState: {
     allBlogs: [],
-    status: '',
+    status: "",
     blog: {},
-    blogStatus: ''
+    blogStatus: "",
+    customBlogs: [],
   },
   reducers: {
+    createCustomBlog: (state, action) => {
+      state.customBlogs = [...state.customBlogs, action.payload];
+      localStorage.setItem(
+        "customBlogPosts",
+        JSON.stringify(state.customBlogs)
+      );
+    },
 
+    getCustomBlog: (state) => {
+      const posts = localStorage.getItem("customBlogPosts");
+      state.customBlogs = JSON.parse(posts);
+    }
   },
 
   extraReducers: (builder) => {
     builder.addCase(blogData.fulfilled, (state, action) => {
-      state.allBlogs = action.payload
-      state.status = 'fulfilled'
+      state.allBlogs = action.payload;
+      state.status = "fulfilled";
     }),
       builder.addCase(blogData.pending, (state, action) => {
-        state.status = 'pending'
-      })
+        state.status = "pending";
+      });
     // single blog
     builder.addCase(singleBlog.fulfilled, (state, action) => {
-      state.blog = action.payload
-      state.blogStatus = 'fulfilled'
+      state.blog = action.payload;
+      state.blogStatus = "fulfilled";
     }),
       builder.addCase(singleBlog.pending, (state, action) => {
-        state.blogStatus = 'pending'
-      })
+        state.blogStatus = "pending";
+      });
   },
+});
 
-})
+export const blogActions = blogSlice.actions;
 
-// export const {  } = blogSlice.actions
-
-export default blogSlice.reducer
+export default blogSlice.reducer;

@@ -10,7 +10,7 @@ import Sidebar from "../common/SideBar";
 const Header = () => {
   const { headerSticky } = useSticky();
   const { user, logout } = useAuth();
-  
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -65,6 +65,7 @@ const Header = () => {
                             );
                           })}
 
+
                         {user?.email &&
                           LoginData.map((link) => {
                             return (
@@ -75,6 +76,7 @@ const Header = () => {
                                 <Link href={`${link.url}`}>
                                   <a>{link.name}</a>
                                 </Link>
+
                                 <ul className={link.submenu ? `submenu` : ""}>
                                   {link?.submenu?.map((sub_menu, index) => {
                                     return (
@@ -89,6 +91,15 @@ const Header = () => {
                               </li>
                             );
                           })}
+
+                          
+                        {user?.email && (
+                          <li>
+                            <Link href="/write-blog">
+                              <a>Write a Blog</a>
+                            </Link>
+                          </li>
+                        )}
                       </ul>
                     </nav>
                   </div>
