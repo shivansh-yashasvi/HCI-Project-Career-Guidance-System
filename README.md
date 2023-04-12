@@ -7,7 +7,7 @@ Our career guidance website provides students with a one-stop solution for stude
 Open Terminal of your computer and run this command to clone the repository -  
 
  ```
- git clone https://github.com/shivansh-yashasvi/HCI-Project-Course-Recommendation-System.git
+ git clone https://github.com/shivansh-yashasvi/HCI-Project-Career-Guidance-System.git
  
  ```
  After cloning the repository, change the directory by running -  
